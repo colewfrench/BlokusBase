@@ -13,7 +13,17 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="1520px"
-        android:background="#FF0000FF" />
+        android:background="#FF0000FF"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/helpRotate"
+            android:text="Rotate Button: Press to rotate selected piece 90 degrees clockwise"
+            android:textAlignment="viewStart"
+            android:textSize="75sp" />
+    </LinearLayout>
 
 
     <LinearLayout

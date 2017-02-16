@@ -2,6 +2,7 @@ package com.example.colefrench.colorpanel;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,6 +27,9 @@ public class MainActivity extends Activity {
 
     private static final int BOARD_SIZE = 20;
     private static final int TILE_SIZE = 76;
+    private boolean itBlack = true;
+    private Textview
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,7 @@ public class MainActivity extends Activity {
 
         int tileSize = TILE_SIZE;
 
+
         LinearLayout.LayoutParams boardLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, tileSize);
 
         for (int i = 0; i < BOARD_SIZE; i++)
@@ -66,7 +71,7 @@ public class MainActivity extends Activity {
 
         }
 
-        ImageButton[][] boardButtons = new ImageButton[BOARD_SIZE][BOARD_SIZE];
+        BoardButton[][] boardButtons = new BoardButton[BOARD_SIZE][BOARD_SIZE];
         LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(tileSize, tileSize);
 
         //Random rand = new Random();
@@ -77,7 +82,7 @@ public class MainActivity extends Activity {
         {
             for (int j = 0; j < BOARD_SIZE; j++)
             {
-                boardButtons[i][j] = new ImageButton(this);
+                boardButtons[i][j] = new BoardButton(this);
                 boardButtons[i][j].setLayoutParams(buttonParams);
 
                 // set the image and scale it to the full size of the imageButton
@@ -93,22 +98,26 @@ public class MainActivity extends Activity {
 
                 if(altColor == true && i%2 ==0)
                 {
-                    boardButtons[i][j].setBackgroundColor(Color.argb(255, 128, 128, 128));
+                    boardButtons[i][j].setBackgroundColor(Color.argb(255, 220, 220, 220));
+                    boardButtons[i][j].setInitialColor(Color.argb(255, 220, 220, 220));
                     altColor = false;
                 }
                 else if(altColor == true)
                 {
-                    boardButtons[i][j].setBackgroundColor(Color.argb(255, 220, 220, 220));
+                    boardButtons[i][j].setBackgroundColor(Color.argb(255, 128,128, 128));
+                    boardButtons[i][j].setInitialColor(Color.argb(255, 128, 128, 128));
                     altColor = false;
                 }
                 else if(altColor == false && i%2==0)
                 {
-                    boardButtons[i][j].setBackgroundColor(Color.argb(225, 220, 220, 220));
+                    boardButtons[i][j].setBackgroundColor(Color.argb(255, 128, 128, 128));
+                    boardButtons[i][j].setInitialColor(Color.argb(255, 128, 128, 128));
                     altColor = true;
                 }
                 else
                 {
-                    boardButtons[i][j].setBackgroundColor(Color.argb(255, 128,128, 128));
+                    boardButtons[i][j].setBackgroundColor(Color.argb(255, 220,220, 220));
+                    boardButtons[i][j].setInitialColor(Color.argb(255, 220, 220, 220));
                     altColor = true;
                 }
 
@@ -163,7 +172,19 @@ public class MainActivity extends Activity {
 
         @Override
         public void onClick(View v) {
-            v.setBackgroundColor(Color.BLACK);
+            if (itBlack == true) {
+                v.setBackgroundColor(Color.BLACK);
+
+                itBlack = false;
+            } else {
+                BoardButton t = (BoardButton)v;
+                v.setBackgroundColor(t.getInitialColor());
+
+                itBlack = true;
+            }
+
+
+
         }
     }
 }
