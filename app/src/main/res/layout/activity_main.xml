@@ -8,13 +8,19 @@
     android:orientation="vertical"
     android:clipToPadding="false">
 
-    <LinearLayout
-        android:id="@+id/boardLayout"
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="1520px"
-        android:background="#FF0000FF"
-        android:weightSum="1">
+        android:layout_height="1520px">
+
+        <LinearLayout
+            android:id="@+id/boardLayout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FF0000FF"
+            android:weightSum="1">
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -22,8 +28,32 @@
             android:id="@+id/helpRotate"
             android:text="Rotate Button: Press to rotate selected piece 90 degrees clockwise"
             android:textAlignment="viewStart"
+            android:textSize="75sp"
+            android:textColor="#FFFFFF"
+            android:background="#FF000000"
+            android:visibility="invisible"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text="Confirm Button: Hit to confirm placement of piece"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/helpConfirm"
+            android:textSize="75sp"
+            android:textColor="#FFFFFF"
+            android:background="#FF000000"
+            android:visibility="invisible" />
+
+        <TextView
+            android:text="Flip Button: Press to flip selected piece across horizontal axis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:background="#FF000000"
+            android:id="@+id/helpFlip"
+            android:visibility="invisible"
             android:textSize="75sp" />
-    </LinearLayout>
+    </FrameLayout>
 
 
     <LinearLayout
@@ -55,21 +85,21 @@
                 android:text="Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/button3"
+                android:id="@+id/ConfirmButton"
                 android:layout_weight="1" />
 
             <Button
                 android:text="Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/button2"
+                android:id="@+id/rotateButton"
                 android:layout_weight="1" />
 
             <Button
                 android:text="Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/button"
+                android:id="@+id/flipButton"
                 android:layout_weight="1" />
         </LinearLayout>
 

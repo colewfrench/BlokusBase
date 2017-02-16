@@ -24,12 +24,19 @@ import org.w3c.dom.Text;
 import java.util.Random;
 
 public class MainActivity extends Activity {
-
+    ///////////static variables to set up board
     private static final int BOARD_SIZE = 20;
     private static final int TILE_SIZE = 76;
     private boolean itBlack = true;
-    private Textview
-
+    ///////////instances for the help text boxes
+    private TextView helpRotate;
+    private TextView helpConfirm;
+    private TextView helpFlip;
+    private boolean helpClick;
+    ///////////instances for the buttons
+    private Button rotateButton;
+    private Button confirmButton;
+    private Button flipButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +64,19 @@ public class MainActivity extends Activity {
 
 
         LinearLayout.LayoutParams boardLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, tileSize);
+        //register buttons and text views
+        helpRotate = (TextView)findViewById(R.id.helpRotate);
+        rotateButton = (Button)findViewById(R.id.rotateButton);
+        rotateButton.setOnClickListener(new RotateButtonListener());
+
+        helpConfirm = (TextView)findViewById(R.id.helpConfirm);
+        confirmButton = (Button)findViewById(R.id.ConfirmButton);
+        confirmButton.setOnClickListener(new ConfirmButtonListener());
+
+        helpFlip = (TextView)findViewById(R.id.helpFlip);
+        flipButton = (Button)findViewById(R.id.flipButton);
+        flipButton.setOnClickListener(new FlipButtonListener());
+        ///////////////////
 
         for (int i = 0; i < BOARD_SIZE; i++)
         {
@@ -74,8 +94,6 @@ public class MainActivity extends Activity {
         BoardButton[][] boardButtons = new BoardButton[BOARD_SIZE][BOARD_SIZE];
         LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(tileSize, tileSize);
 
-        //Random rand = new Random();
-        int red, green, blue;
         boolean altColor = true;
 
         for (int i = 0; i < BOARD_SIZE; i++)
@@ -91,10 +109,6 @@ public class MainActivity extends Activity {
 
                 boardButtons[i][j].setBackgroundColor(Color.BLUE);
                 boardLayouts[i].addView(boardButtons[i][j]);
-
-                //red = rand.nextInt(256);
-                //green = rand.nextInt(256);
-               // blue = rand.nextInt(256);
 
                 if(altColor == true && i%2 ==0)
                 {
@@ -167,24 +181,72 @@ public class MainActivity extends Activity {
             scrollingPieceLayout.addView(imageButton);
         }
     }
-
+    //listeners
     public class ButtonListener implements Button.OnClickListener {
 
         @Override
-        public void onClick(View v) {
-            if (itBlack == true) {
+        public void onClick(View v)
+        {
+            if (itBlack == true)
+            {
                 v.setBackgroundColor(Color.BLACK);
-
                 itBlack = false;
-            } else {
+            }
+            else
+            {
                 BoardButton t = (BoardButton)v;
                 v.setBackgroundColor(t.getInitialColor());
-
                 itBlack = true;
             }
+        }
+    }
+    private class RotateButtonListener implements View.OnClickListener
+    {
+        public void onClick(View v)
+        {
+            if(helpClick == false)
+            {
+                helpRotate.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+                helpRotate.setVisibility(View.VISIBLE);
+            }
+            helpClick =! helpClick;
+        }
+    }
 
+    private class ConfirmButtonListener implements View.OnClickListener
+    {
+        public void onClick(View v)
+        {
+            if(helpClick == false)
+            {
+                helpConfirm.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+                helpConfirm.setVisibility(View.VISIBLE);
+            }
+            helpClick =! helpClick;
+        }
+    }
 
-
+    private class FlipButtonListener implements View.OnClickListener
+    {
+        public void onClick(View v)
+        {
+            if(helpClick == false)
+            {
+                helpFlip.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+                helpFlip.setVisibility(View.VISIBLE);
+            }
+            helpClick =! helpClick;
         }
     }
 }
+
+
