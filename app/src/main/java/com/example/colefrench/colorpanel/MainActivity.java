@@ -69,8 +69,9 @@ public class MainActivity extends Activity {
         ImageButton[][] boardButtons = new ImageButton[BOARD_SIZE][BOARD_SIZE];
         LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(tileSize, tileSize);
 
-        Random rand = new Random();
+        //Random rand = new Random();
         int red, green, blue;
+        boolean altColor = true;
 
         for (int i = 0; i < BOARD_SIZE; i++)
         {
@@ -86,11 +87,30 @@ public class MainActivity extends Activity {
                 boardButtons[i][j].setBackgroundColor(Color.BLUE);
                 boardLayouts[i].addView(boardButtons[i][j]);
 
-                red = rand.nextInt(256);
-                green = rand.nextInt(256);
-                blue = rand.nextInt(256);
+                //red = rand.nextInt(256);
+                //green = rand.nextInt(256);
+               // blue = rand.nextInt(256);
 
-                boardButtons[i][j].setBackgroundColor(Color.argb(255, red, green, blue));
+                if(altColor == true && i%2 ==0)
+                {
+                    boardButtons[i][j].setBackgroundColor(Color.argb(255, 128, 128, 128));
+                    altColor = false;
+                }
+                else if(altColor == true)
+                {
+                    boardButtons[i][j].setBackgroundColor(Color.argb(255, 220, 220, 220));
+                    altColor = false;
+                }
+                else if(altColor == false && i%2==0)
+                {
+                    boardButtons[i][j].setBackgroundColor(Color.argb(225, 220, 220, 220));
+                    altColor = true;
+                }
+                else
+                {
+                    boardButtons[i][j].setBackgroundColor(Color.argb(255, 128,128, 128));
+                    altColor = true;
+                }
 
                 boardButtons[i][j].setOnClickListener(new ButtonListener());
             }
