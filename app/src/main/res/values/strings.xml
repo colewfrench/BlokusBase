@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ColorPanel</string>
+    <string name="testTextBox">Hello World</string>
+</resources>
