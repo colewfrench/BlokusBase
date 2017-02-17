@@ -24,7 +24,7 @@ import org.w3c.dom.Text;
 import java.util.Random;
 
 public class MainActivity extends Activity {
-    ///////////static variables to set up board
+    // static variables to set up board
     private static final int BOARD_SIZE = 20;
     private static final int TILE_SIZE = 76;
     private boolean itBlack = true;
