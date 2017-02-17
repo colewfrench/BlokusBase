@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 /**
- * Created by devinajimine on 2/15/17.
+ * Created by devinajimine and adrianlow on 2/15/17.
  */
 
 public class BoardButton extends ImageButton
