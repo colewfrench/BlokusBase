@@ -24,16 +24,20 @@ import org.w3c.dom.Text;
 import java.util.Random;
 
 public class MainActivity extends Activity {
-    // static variables to set up board
+    //static constants to set up board
     private static final int BOARD_SIZE = 20;
     private static final int TILE_SIZE = 76;
-    private boolean itBlack = true;
-    ///////////instances for the help text boxes
+    //boolean to check if square on board was changed to black
+    private boolean boardClicked = false;
+    //boolean to see if the help text is displayed
+    private boolean helpClick;
+    //boolean to set up the board color
+    private boolean altColor = true;
+    //global variables for the help text boxes
     private TextView helpRotate;
     private TextView helpConfirm;
     private TextView helpFlip;
-    private boolean helpClick;
-    ///////////instances for the buttons
+    //global variables for buttons
     private Button rotateButton;
     private Button confirmButton;
     private Button flipButton;
@@ -64,7 +68,7 @@ public class MainActivity extends Activity {
 
 
         LinearLayout.LayoutParams boardLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, tileSize);
-        //register buttons and text views
+        //register buttons, listeners, and text views
         helpRotate = (TextView)findViewById(R.id.helpRotate);
         rotateButton = (Button)findViewById(R.id.rotateButton);
         rotateButton.setOnClickListener(new RotateButtonListener());
@@ -76,7 +80,6 @@ public class MainActivity extends Activity {
         helpFlip = (TextView)findViewById(R.id.helpFlip);
         flipButton = (Button)findViewById(R.id.flipButton);
         flipButton.setOnClickListener(new FlipButtonListener());
-        ///////////////////
 
         for (int i = 0; i < BOARD_SIZE; i++)
         {
@@ -88,13 +91,10 @@ public class MainActivity extends Activity {
 
             mainBoardLayout.addView(boardLayouts[i]);
             // look up the LayoutParams docs, currently using the width,height,weight constructor
-
         }
 
         BoardButton[][] boardButtons = new BoardButton[BOARD_SIZE][BOARD_SIZE];
         LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(tileSize, tileSize);
-
-        boolean altColor = true;
 
         for (int i = 0; i < BOARD_SIZE; i++)
         {
@@ -110,6 +110,7 @@ public class MainActivity extends Activity {
                 boardButtons[i][j].setBackgroundColor(Color.BLUE);
                 boardLayouts[i].addView(boardButtons[i][j]);
 
+                //sets alternating colors for the board and stores the color for each BoardButton to revert color back if changed
                 if(altColor == true && i%2 ==0)
                 {
                     boardButtons[i][j].setBackgroundColor(Color.argb(255, 220, 220, 220));
@@ -133,11 +134,10 @@ public class MainActivity extends Activity {
                     boardButtons[i][j].setBackgroundColor(Color.argb(255, 220,220, 220));
                     boardButtons[i][j].setInitialColor(Color.argb(255, 220, 220, 220));
                     altColor = true;
-                }
+                }//end setting colors for board
 
-                boardButtons[i][j].setOnClickListener(new ButtonListener());
+                boardButtons[i][j].setOnClickListener(new BoardButtonListener());
             }
-
         }
 
         makeScrollingPieceButtons();
@@ -182,71 +182,72 @@ public class MainActivity extends Activity {
         }
     }
     //listeners
-    public class ButtonListener implements Button.OnClickListener {
+    public class BoardButtonListener implements Button.OnClickListener {
 
         @Override
-        public void onClick(View v)
+        public void onClick(View v)//when a square on the board is clicked
         {
-            if (itBlack == true)
+            if (boardClicked == false) //if the square has not been changed to black
             {
-                v.setBackgroundColor(Color.BLACK);
-                itBlack = false;
+                v.setBackgroundColor(Color.BLACK); //sets the square to black
+                boardClicked = true;
             }
-            else
+            else //if the square is black
             {
                 BoardButton t = (BoardButton)v;
-                v.setBackgroundColor(t.getInitialColor());
-                itBlack = true;
+                v.setBackgroundColor(t.getInitialColor()); //sets the square back to the original color
+                boardClicked = false;
             }
         }
-    }
+    }//end of ButtonListener
+
     private class RotateButtonListener implements View.OnClickListener
     {
-        public void onClick(View v)
+        public void onClick(View v) //when the rotate button is clicked
         {
-            if(helpClick == false)
+            if(helpClick == false) //the help is currently displayed
             {
-                helpRotate.setVisibility(View.INVISIBLE);
+                helpRotate.setVisibility(View.INVISIBLE); //set the text to invisible
             }
-            else
+            else //the help text is not displayed
             {
-                helpRotate.setVisibility(View.VISIBLE);
+                helpRotate.setVisibility(View.VISIBLE); //text displays
             }
-            helpClick =! helpClick;
+            helpClick =! helpClick; //change boolean
         }
-    }
+    }//end of RotateButtonListener
 
     private class ConfirmButtonListener implements View.OnClickListener
     {
-        public void onClick(View v)
+        public void onClick(View v)//when the confirm button is clicked
         {
-            if(helpClick == false)
+            if(helpClick == false) //the help is currently displayed
             {
-                helpConfirm.setVisibility(View.INVISIBLE);
+                helpConfirm.setVisibility(View.INVISIBLE); //set the text to invisible
             }
-            else
+            else//the help text is not displayed
             {
-                helpConfirm.setVisibility(View.VISIBLE);
+                helpConfirm.setVisibility(View.VISIBLE);//text displays
             }
-            helpClick =! helpClick;
+            helpClick =! helpClick;//change boolean
         }
-    }
+    }//end of ConfirmButtonListener
 
     private class FlipButtonListener implements View.OnClickListener
     {
         public void onClick(View v)
         {
-            if(helpClick == false)
+            if(helpClick == false)//the help is currently displayed
             {
-                helpFlip.setVisibility(View.INVISIBLE);
+                helpFlip.setVisibility(View.INVISIBLE);//set the text to invisible
             }
-            else
+            else//the help text is not displayed
             {
-                helpFlip.setVisibility(View.VISIBLE);
+                helpFlip.setVisibility(View.VISIBLE);//text displays
             }
-            helpClick =! helpClick;
+            helpClick =! helpClick;//change boolean
         }
-    }
+    }//end of FlipButtonListener
 }
 
 
